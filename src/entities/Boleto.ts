@@ -1,7 +1,7 @@
 export class Boleto {
 
   public barCode: string
-  public amount: number
+  public amount: string
   public expirationDate: Date | string
 
   constructor (props) {

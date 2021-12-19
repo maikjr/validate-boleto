@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { cdbUnitPricesController } from './useCases/CdbUnitPricesUseCase'
+import { boletoController } from './useCases/BoletosUseCase'
 
 const router = Router()
 
@@ -8,7 +8,7 @@ router.get('/', (request, response) => {
   return response.status(201).json({ message: 'Hello, friend!' })
 })
 
-router.post('/cdb-unit-prices', (request, response) => {
-  return cdbUnitPricesController.handle(request, response)
+router.get('/boleto/:code', (request, response) => {
+  return boletoController.handle(request, response)
 })
 export { router }
