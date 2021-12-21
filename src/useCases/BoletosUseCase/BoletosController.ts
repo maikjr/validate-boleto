@@ -1,16 +1,14 @@
-
-   
 import { Request, Response } from 'express'
 import { BoletosUseCase } from './BoletosUseCase'
 
-export class boletosController {
+export class BoletosController {
   constructor(private boletosUseCase: BoletosUseCase) {}
 
   async handle(request: Request, response: Response): Promise<Response> {
     const { code } = request.params
     try {
       const boleto = await this.boletosUseCase.execute({
-        code,
+        code
       })
       return response.status(200).send({ boleto })
     } catch (err) {

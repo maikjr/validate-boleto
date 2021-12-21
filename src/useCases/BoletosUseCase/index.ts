@@ -1,13 +1,11 @@
 import { BoletosRepository } from '../../repositories/implementations/BoletosRepository'
 import { BoletosUseCase } from './BoletosUseCase'
-import { boletosController } from './BoletosController'
+import { BoletosController } from './BoletosController'
 
 const boletoRepository = new BoletosRepository()
 
-const boletoUseCase = new BoletosUseCase(
-  boletoRepository,
-)
+const boletoUseCase = new BoletosUseCase(boletoRepository)
 
-const boletoController = new boletosController(boletoUseCase)
+const boletoController = new BoletosController(boletoUseCase)
 
 export { boletoUseCase, boletoController }
