@@ -11,7 +11,7 @@ export class BoletosConvenioServices implements IBoletosConvenioServices {
   }
 
   getExpirationDate (): any {
-    const dateCode = this.code.substring(19, 27)
+    const dateCode = this.code.slice(33, 37)
     const validateDate = moment(dateCode, 'YYYY-MM-DD').isValid()
       ? moment(dateCode).locale('pt-br')
       : null
