@@ -1,16 +1,16 @@
 import moment from 'moment'
 
-import { IBoletosConvenioServices } from '../IBoletosConvenioServices'
+import { IBoletosService } from '../IBoletosService'
 
-export class BoletosConvenioServices implements IBoletosConvenioServices {
-  constructor (private code: string) {}
+export class BoletosConvenioServices implements IBoletosService {
+  constructor(private code: string) {}
 
-  getAmount (): string {
+  getAmount(): string {
     const amount = this.code.substring(4, 15)
     return (Number(amount) / 100).toFixed(2)
   }
 
-  getExpirationDate (): any {
+  getExpirationDate(): any {
     const dateCode = this.code.slice(33, 37)
     const validateDate = moment(dateCode, 'YYYY-MM-DD').isValid()
       ? moment(dateCode).locale('pt-br')
@@ -18,7 +18,7 @@ export class BoletosConvenioServices implements IBoletosConvenioServices {
     return validateDate
   }
 
-  module10 (bloco: string): number {
+  module10(bloco: string): number {
     const tamanhoBloco = bloco.length - 1
     const codigo = bloco.substr(0, tamanhoBloco)
     const reverseCode = codigo.split('').reverse()
@@ -26,7 +26,7 @@ export class BoletosConvenioServices implements IBoletosConvenioServices {
     let soma = 0
 
     reverseCode.map((value, index) => {
-      const math = value * (index % 2 == 0 ? 2 : 1)
+      const math = parseInt(value) * (index % 2 == 0 ? 2 : 1)
       // se o resultado de math > 9 eu somo os algarismo antes de adicionar a soma
       if (math > 9) {
         soma += parseInt(math.toString()[0]) + parseInt(math.toString()[1])
@@ -38,7 +38,7 @@ export class BoletosConvenioServices implements IBoletosConvenioServices {
     return Math.ceil(soma / 10) * 10 - soma
   }
 
-  module11 (bloco: string): number {
+  module11(bloco: string): number {
     const tamanhoBloco = bloco.length - 1
     const codigo = bloco.substr(0, tamanhoBloco)
     const reverseCode = codigo.split('').reverse()
@@ -46,7 +46,7 @@ export class BoletosConvenioServices implements IBoletosConvenioServices {
     let soma = 0
 
     reverseCode.map((value, index) => {
-      soma += value * (2 + (index >= 8 ? index - 8 : index))
+      soma += parseInt(value) * (2 + (index >= 8 ? index - 8 : index))
       // se o resultado de math > 9 eu somo os algarismo antes de adicionar a soma
     })
 
@@ -61,7 +61,7 @@ export class BoletosConvenioServices implements IBoletosConvenioServices {
     }
   }
 
-  validateDac (blocos: string[]): boolean {
+  validateDac(blocos: string[]): boolean {
     let isValid = 0
 
     blocos.map((bloco, index) => {

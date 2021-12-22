@@ -1,4 +1,4 @@
-export interface IBoletosTituloServices {
+export interface IBoletosService {
   getAmount: (code: string) => string
   getExpirationDate: (code: string) => any
   module10: (code: string) => number

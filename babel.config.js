@@ -1,4 +1,4 @@
-odule.exports = {
+module.exports = {
   presets: [
     [
       '@babel/preset-env',
@@ -11,15 +11,16 @@ odule.exports = {
     '@babel/preset-typescript'
   ],
   plugins: [
-    ['module-resolver', {
-      alias: {
-        '@entites': './src/entites',
-        '@useCases': './src/useCases',
-        '@repositories': './src/repositories'
+    [
+      'module-resolver',
+      {
+        alias: {
+          '@entites': './src/entites',
+          '@useCases': './src/useCases',
+          '@repositories': './src/repositories'
+        }
       }
-    }]
+    ]
   ],
-  ignore: [
-    '**/*.spec.ts'
-  ]
+  ignore: ['**/*.spec.ts']
 }

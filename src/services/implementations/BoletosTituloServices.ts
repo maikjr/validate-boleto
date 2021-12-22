@@ -1,30 +1,30 @@
-import { IBoletosTituloServices } from '../IBoletosTituloService'
+import { IBoletosService } from '../IBoletosService'
 
-export class BoletosTituloServices implements IBoletosTituloServices {
-  constructor(private code: string) {}
+export class BoletosTituloServices implements IBoletosService {
+  constructor (private code: string) {}
 
-  getAmount(): string {
+  getAmount (): string {
     const amount = this.code.substr(37, 10)
     return (Number(amount) / 100).toFixed(2)
   }
 
-  getExpirationDate(): any {
+  getExpirationDate (): any {
     const fatorVencimento = this.code.substr(33, 4)
 
-    if (fatorVencimento == 0) return null
+    if (parseInt(fatorVencimento) == 0) return null
 
     const dataBase = new Date()
     const vencimentoBoleto = new Date()
 
     dataBase.setFullYear(1997, 9, 7)
     vencimentoBoleto.setTime(
-      dataBase.getTime() + 1000 * 60 * 60 * 24 * fatorVencimento
+      dataBase.getTime() + 1000 * 60 * 60 * 24 * parseInt(fatorVencimento)
     )
 
     return vencimentoBoleto
   }
 
-  module10(bloco: string): number {
+  module10 (bloco: string): number {
     const tamanhoBloco = bloco.length - 1
     const codigo = bloco.substr(0, tamanhoBloco)
     const reverseCode = codigo.split('').reverse()
@@ -32,7 +32,7 @@ export class BoletosTituloServices implements IBoletosTituloServices {
     let soma = 0
 
     reverseCode.map((value, index) => {
-      const math = value * (index % 2 == 0 ? 2 : 1)
+      const math = parseInt(value) * (index % 2 == 0 ? 2 : 1)
       // se o resultado de math > 9 eu somo os algarismo antes de adicionar a soma
       if (math > 9) {
         soma += parseInt(math.toString()[0]) + parseInt(math.toString()[1])
@@ -44,13 +44,13 @@ export class BoletosTituloServices implements IBoletosTituloServices {
     return Math.ceil(soma / 10) * 10 - soma
   }
 
-  module11(bloco: string): number {
+  module11 (bloco: string): number {
     let soma = 0
     let peso = 2
     const base = 9
     const contador = bloco.length - 1
     for (let i = contador; i >= 0; i--) {
-      soma = soma + bloco.substring(i, i + 1) * peso
+      soma = soma + parseInt(bloco.substring(i, i + 1)) * peso
       if (peso < base) {
         peso++
       } else {
@@ -63,7 +63,7 @@ export class BoletosTituloServices implements IBoletosTituloServices {
     return digito
   }
 
-  validateDac(blocos: string[]): boolean {
+  validateDac (blocos: string[]): boolean {
     let isValid = 0
 
     blocos.map((bloco, index) => {

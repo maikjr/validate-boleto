@@ -1,4 +1,12 @@
-function GenerateBlocksAndBarCode (type, code) {
+interface IGenerateBlocksAndBarCode {
+  blocks: string[]
+  barcode: string
+}
+
+function GenerateBlocksAndBarCode(
+  type: string,
+  code: string
+): IGenerateBlocksAndBarCode {
   const blocks = []
   let barcode = ''
 
